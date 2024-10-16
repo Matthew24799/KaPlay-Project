@@ -6,3 +6,28 @@ kaplay({
     height: 915,
     letterbox: true,
 })
+loadSprite("player", "assets/bean.png");
+
+setGravity(1600)
+
+const player = add([
+    sprite("player"),
+    pos(200,830),
+    area(),
+    body(),
+])
+
+add([
+    rect(width(), 48),
+    outline(4),
+    area(),
+    pos(0, height() - 40),
+    body({ isStatic: true }),
+]);
+
+
+onKeyPress("space", () => {
+    if (player.isGrounded()) {
+        player.jump()
+    }
+})
