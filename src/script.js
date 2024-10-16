@@ -6,8 +6,12 @@ kaplay({
     height: 915,
     letterbox: true,
 })
+
+
+
 loadSprite("player", "assets/bean.png");
 
+let score = 0;
 setGravity(1600)
 
 const player = add([
@@ -15,7 +19,7 @@ const player = add([
     pos(200,830),
     area(),
     body(),
-])
+]);
 
 add([
     rect(width(), 48),
@@ -30,4 +34,17 @@ onKeyPress("space", () => {
     if (player.isGrounded()) {
         player.jump()
     }
-})
+});
+
+const scoreLabel = add([
+    text(score),
+    anchor("center"),
+    pos(width() / 2, 100),
+    fixed(),
+    z(100),
+]);
+
+ onUpdate(() => {
+    score++;
+    scoreLabel.text = score;
+ });
