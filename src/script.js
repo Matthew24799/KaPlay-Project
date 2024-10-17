@@ -16,6 +16,7 @@ setGravity(1400)
 
 const player = add([
     sprite("player"),
+    anchor("bot"),
     pos(200,830),
     area(),
     body(),
@@ -26,6 +27,14 @@ add([
     outline(4),
     area(),
     pos(0, height() - 40),
+    body({ isStatic: true }),
+]);
+
+const platform = add([
+    rect(100, 50),
+    outline(4),
+    anchor("top"),
+    pos(206, 750),
     body({ isStatic: true }),
 ]);
 
