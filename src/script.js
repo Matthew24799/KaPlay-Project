@@ -8,11 +8,12 @@ kaplay({
 })
 loadSprite("player", "assets/bean.png");
 
-setGravity(1600)
+setGravity(1400)
 
 const player = add([
     sprite("player"),
-    pos(200,830),
+    pos(200,830), 
+    anchor("botleft"),
     area(),
     body(),
 ])
@@ -25,9 +26,23 @@ add([
     body({ isStatic: true }),
 ]);
 
+const platform = add([
+    rect(100, 50),
+    outline(4),
+    pos(206, 750),
+    anchor("topleft"),
+    body({ isStatic: true }), 
+    "platform",
+]);
 
 onKeyPress("space", () => {
     if (player.isGrounded()) {
         player.jump()
     }
 })
+
+onUpdate(()=>{
+    if (player.pos.y < platform.pos.y)
+    platform.use(area())
+    }
+    )
