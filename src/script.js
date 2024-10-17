@@ -6,6 +6,9 @@ kaplay({
     height: 915,
     letterbox: true,
 })
+
+
+
 loadSprite("player", "assets/bean.png");
 
 setGravity(1400)
@@ -16,7 +19,7 @@ const player = add([
     anchor("botleft"),
     area(),
     body(),
-])
+]);
 
 add([
     rect(width(), 48),
@@ -46,3 +49,17 @@ onUpdate(()=>{
     platform.use(area())
     }
     )
+});
+
+const scoreLabel = add([
+    text(score),
+    anchor("center"),
+    pos(width() / 2, 100),
+    fixed(),
+    z(100),
+]);
+
+ onUpdate(() => {
+    score++;
+    scoreLabel.text = score;
+ });
