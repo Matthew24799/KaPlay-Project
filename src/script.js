@@ -11,12 +11,12 @@ kaplay({
 
 loadSprite("player", "assets/bean.png");
 
+let score = 0;
 setGravity(1400)
 
 const player = add([
     sprite("player"),
-    pos(200,830), 
-    anchor("botleft"),
+    pos(200,830),
     area(),
     body(),
 ]);
@@ -29,26 +29,11 @@ add([
     body({ isStatic: true }),
 ]);
 
-const platform = add([
-    rect(100, 50),
-    outline(4),
-    pos(206, 750),
-    anchor("topleft"),
-    body({ isStatic: true }), 
-    "platform",
-]);
 
 onKeyPress("space", () => {
     if (player.isGrounded()) {
         player.jump()
     }
-})
-
-onUpdate(()=>{
-    if (player.pos.y < platform.pos.y)
-    platform.use(area())
-    }
-    )
 });
 
 const scoreLabel = add([
@@ -63,3 +48,8 @@ const scoreLabel = add([
     score++;
     scoreLabel.text = score;
  });
+
+onUpdate(()=>{
+    if (player.pos.y < platform.pos.y)
+    platform.use(area())
+});
