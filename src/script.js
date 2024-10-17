@@ -12,6 +12,7 @@ kaplay({
 loadSprite("player", "assets/bean.png");
 
 let score = 0;
+let speed = 300;
 setGravity(1400)
 
 const player = add([
@@ -45,6 +46,15 @@ onKeyPress("space", () => {
     }
 });
 
+onKeyDown("a", () => {
+    player.move(-speed, 0);
+})
+
+
+onKeyDown("d", () => {
+    player.move(speed, 0)
+})
+
 const scoreLabel = add([
     text(score),
     anchor("center"),
@@ -53,12 +63,15 @@ const scoreLabel = add([
     z(100),
 ]);
 
- onUpdate(() => {
+
+loop(0.5, () => {
     score++;
     scoreLabel.text = score;
- });
+})
+
 
 onUpdate(()=>{
-    if (player.pos.y < platform.pos.y)
-    platform.use(area())
+    if (player.pos.y < platform.pos.y) {
+    platform.use(area());
+    }
 });
