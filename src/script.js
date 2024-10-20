@@ -46,12 +46,16 @@ add([
 ]);
 
 
-onKeyPress("space", () => {
-    if (player.isGrounded()) {
-        player.jump()
-    }
-});
+    onUpdate( () => {
+        if (player.isGrounded()) {
+            player.jump()
+        }
+    }) 
 
+    player.onUpdate( () => {
+        camPos(player.worldPos());
+    })
+   
 onKeyDown("a", () => {
     player.move(-speed, 0);
 });
