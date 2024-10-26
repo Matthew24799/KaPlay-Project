@@ -4,7 +4,6 @@ import kaplay from "https://unpkg.com/kaplay@3001.0.0-alpha.20/dist/kaplay.mjs";
 kaplay({
     width: 412,
     height: 915,
-    letterbox: true,
 })
 
 
@@ -12,11 +11,11 @@ kaplay({
 loadSprite("player", "assets/bean.png");
 
 //Keeps track of how many platforms have been made after starting.
-let platforms = 0;
-
+let platforms = [];
+ let currentPlatform = 0; 
 let score = 0;
-let speed = 300;
-setGravity(1400)
+let speed = 550;
+setGravity(700)
 
 const player = add([
     sprite("player"),
@@ -81,9 +80,12 @@ loop(0.5, () => {
 
 //Gives collision to the highest platform if the player goes above it.
 onUpdate(()=>{
-        if (player.pos.y < get("platform")[platforms].pos.y) {
-            get("platform")[platforms].use(area());
+       
+
+        if (player.pos.y < get("platform")[currentPlatform].pos.y) {
+            get("platform")[currentPlatform].use(area());
             }
+            
 });
 
 //Upon landing on a platform, creates a new, higher platform.
@@ -91,14 +93,20 @@ onUpdate(()=>{
 //but that can be fixed later. I'm tired.
 player.onCollide("platform", () => {
     const x = rand(50, width() - 50);
-    const y = get("platform")[platforms].pos.y - 130;
-    platforms++
-    add([
-        rect(100, 25),
-        outline(4),
-        anchor("top"),
-        pos(x, y),
-        body({ isStatic: true }),
-        "platform",
-    ]);
+    const y = get("platform")[currentPlatform].pos.y - 250;
+            
+            if (player.pos.y >= get("platform")[currentPlatform].pos.y) {
+                add([
+                    rect(100, 25),
+                    outline(4),
+                    anchor("top"),
+                    pos(x, y),
+                    body({ isStatic: true }),
+                    "platform",
+                ]);
+                ++currentPlatform
+                console.log(currentPlatform);
+                
+            }
+            
 });
